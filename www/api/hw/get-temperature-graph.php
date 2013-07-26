@@ -6,7 +6,10 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
 	$sType = $_GET['type'];
 
 	$sUrl = "http://" . CONFIG_HW_HOST . ":" . CONFIG_HW_PORT . "/" . CONFIG_HW_PASSWORD . "/te/graph/" . $sId . "/" . $sType;
-	$sData = file_get_contents($sUrl);
+	
+	$context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
+	$sData = file_get_contents($sUrl, false, $context);
+	
 	echo $sData;
 	
 } else {

@@ -1,0 +1,36 @@
+{
+	"map": {
+		"temperaturezones": [
+			{
+				"sensorid": 0,
+				"color": "#00FF00",
+				"labelposx": 200,
+				"labelposy": 135
+			},
+			{
+				"sensorid": 1,
+				"color": "#FF0000",
+				"labelposx": 30,
+				"labelposy": 135
+			},
+			{
+				"sensorid": 2,
+				"color": "#FFFF00",
+				"labelposx": 640,
+				"labelposy": 85
+			},
+			{
+				"sensorid": 3,
+				"color": "#0000FF",
+				"labelposx": 500,
+				"labelposy": 85
+			},
+			{
+				"sensorid": 4,
+				"color": "#FF00FF",
+				"labelposx": 360,
+				"labelposy": 165
+			}
+		]
+	}
+}

@@ -11,7 +11,7 @@ function startTemperatureReading() {
 			
 			$(sensorlistname).append("<div id=\"thermometer" + counter + "\" class=\"sensorblock\">" + 
 				"<h4>" + thermometer.name  + "</h4><p>" + 
-				"Temperature: <strong>" + thermometer.te + "</strong>, Humidity: <strong>" + thermometer.hu + "</strong>" + 
+				"Temperature: <strong id=\"temperature" + thermometer.id + "te\">" + thermometer.te + "</strong>, Humidity: <strong id=\"temperature" + thermometer.id + "hu\">" + thermometer.hu + "</strong>" + 
 				"<div id=\"temperature" + thermometer.id + "graph\">&nbsp</div>" +
 			"</p></div>");
 			counter++;
@@ -25,10 +25,87 @@ function startTemperatureReading() {
 }
 
 function updateTemperatures(numberOfThermometers, updateOffset) {
+	updateTemperatureFieldsAndImage();
 	for (var i=0; i < numberOfThermometers; i++) {
 		setTimeout("updateTemperatureGraph(" + i + ");", i * updateOffset);
 	}
 }
+
+function updateTemperatureFieldsAndImage() {
+	var imgId = "mapimage";
+	var oldColors = new Array();
+	var labelxposes = new Array();
+	var labelyposes = new Array();
+	var labeltexts = new Array();
+	
+	//Read configuration
+	$.ajax({
+  		url: "map/mapconfig.json",
+ 		dataType: 'json',
+  		async: false,
+	}).done(function(data) {
+		$.each(data.map.temperaturezones, function(i, temperaturezone) {
+			oldColors[temperaturezone.sensorid] = temperaturezone.color;
+			labelxposes[temperaturezone.sensorid] = temperaturezone.labelposx;
+			labelyposes[temperaturezone.sensorid] = temperaturezone.labelposy;
+		});
+	});
+	
+	//Get sensordata
+	var newColors = new Array();
+	$.ajax({
+		url: "api/hw/get-sensors.php", 
+		dataType: 'json', 
+		async: false,
+	}).done(function(data) {
+		$.each(data.response.thermometers, function(i, thermometer) {
+			//Set fields
+			$("temperature" + thermometer.id + "te").html(thermometer.te);
+			$("temperature" + thermometer.id + "hu").html(thermometer.hu);
+			
+			labeltexts[thermometer.id] = thermometer.te;
+			
+			//Calculate temperature to offset for color interpolator, offset is -25 celcius
+			var offset = 250 + (thermometer.te * 10);
+			var newcolor = "";
+			if (offset < 0) {
+				newcolor = "#000088";
+			} else if (offset > 0 && offset < 250) {		//Temperature below 0 celcius
+				newcolor = interpolateColor("#008888","#11eeee",249,offset);
+			} else if (offset >= 250 && offset < 450) {		//Temperature between 0 and 20 celcius
+				newcolor = interpolateColor("#11eeee","#eebb00",200,offset - 249);
+			} else if (offset >= 450 && offset < 550) {		//Temperature between 20 and 30 celcius
+				newcolor = interpolateColor("#eebb00","#ff2211",200,offset - 349);
+			} else if (offset >= 550 && offset < 750) {		//Temperature between 30 and 50 celcius
+				newcolor = interpolateColor("#ff2211","#330000",200,offset - 549);
+			} else {
+				newcolor = "#330000";
+			}
+			
+			newColors[thermometer.id] = newcolor;
+		});
+	});
+	
+	//Update map image
+	var img0 = document.getElementById(imgId);
+
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext("2d");
+    canvas.width = img0.width;
+    canvas.height = img0.height;
+
+    // draw the image on the temporary canvas
+    context.drawImage(img0, 0, 0, canvas.width, canvas.height);
+    
+    //RecolorImage
+	recolorImage(canvas, context, oldColors, newColors);
+	writeText(canvas, context, labelxposes, labelyposes, labeltexts);
+    
+    //Put the canvas back on screen
+	var img1 = document.getElementById(imgId);
+    img1.src = canvas.toDataURL('image/png');
+}
+
 
 function updateTemperatureGraph(sensorId) {
 	$.getJSON("api/hw/get-temperature-graph.php?id=" + sensorId + "&type=day", function(data) {
