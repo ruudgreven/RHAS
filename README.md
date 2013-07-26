@@ -6,7 +6,12 @@ Because I try to build it as general as possible, so other people can use it for
 
 ## Configuration
 Download the source. Create config.inc.php from the example and you can go.
-N.B. At this moment the frontpage shows a map of my house. I have a plan to build this some sort of general so you can use your own map.
+
+## Configuration map
+I've created some sort of ubercool heat map. To update it for your house, do the following steps:
+- Create a map of your house, 700px wide, height doesn't matter
+- Give every single room, which contains a thermometer, a specific color.
+- Edit mapconfig.json to match your configuration. Specify the colors for every room (based on thermometer sensor id) and specify the position where to put a label.
 
 ## Current status
 At this point RHAS uses the Homewizard to thermometer data and put it on the frontpage. In the future it will be far more than that
