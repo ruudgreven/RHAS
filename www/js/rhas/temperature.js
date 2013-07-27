@@ -1,6 +1,10 @@
 function startTemperatureReading() {
+  //TODO: Read thermometer names and put them in the boxes
+  
+  
 	//Loads the numbers of temperature sensors and create boxes for them
 	$.getJSON("api/hw/get-sensors.php", function(data) {
+		
 		var counter = 0;
 		$.each(data.response.thermometers, function(i, thermometer) {
 			if (counter % 2 == 0) {
@@ -10,7 +14,7 @@ function startTemperatureReading() {
 			}
 			
 			$(sensorlistname).append("<div id=\"thermometer" + counter + "\" class=\"sensorblock\">" + 
-				"<h4>" + thermometer.name  + "</h4><p>" + 
+				"<h4>" + thermometer.id  + "</h4><p>" + 
 				"Temperature: <strong id=\"temperature" + thermometer.id + "te\">" + thermometer.te + "</strong>, Humidity: <strong id=\"temperature" + thermometer.id + "hu\">" + thermometer.hu + "</strong>" + 
 				"<div id=\"temperature" + thermometer.id + "graph\">&nbsp</div>" +
 			"</p></div>");
@@ -26,7 +30,7 @@ function startTemperatureReading() {
 
 function updateTemperatures(numberOfThermometers, updateOffset) {
 	for (var i=0; i < numberOfThermometers; i++) {
-		setTimeout("updateTemperatureGraph(" + i + ");", i * updateOffset);
+		updateTemperatureGraph(i);
 	}
 	updateTemperatureFieldsAndImage();
 }
@@ -108,13 +112,13 @@ function updateTemperatureFieldsAndImage() {
 
 
 function updateTemperatureGraph(sensorId) {
-	$.getJSON("api/hw/get-temperature-graph.php?id=" + sensorId + "&type=day", function(data) {
+	$.getJSON("api/hw/get-temperature-graph.php?id=" + sensorId + "&type=8hours", function(data) {
 		var plotdata = new Array();
 		var counter = 0;
 		$.each(data.response, function(i, measure) {
 			plotdata[counter] = new Array();
 			plotdata[counter][0] = measure.t;
-			plotdata[counter][1] = measure.te;
+			plotdata[counter][1] = new Number(measure.te);
 			counter++;
 		});
 		

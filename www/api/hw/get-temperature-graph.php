@@ -1,32 +1,39 @@
 <?php
-//TODO: A bit freaky caching. When you supply an not existant id it will create a cachefile and puts no or error data in it. Possibly security issue
-
 require_once(dirname(__FILE__) . "/../../../config.inc.php");
 
+//Open database connection
+$oMysqli = new mysqli(CONFIG_DB_HOSTNAME, CONFIG_DB_USERNAME, CONFIG_DB_PASSWORD, CONFIG_DB_DATABASE);
+if (mysqli_connect_errno()) {
+	die('{"status": "failed", "error": "'  . addslashes(mysqli_error()) . '"}');
+}
+
+//Check if there is an id and type given
 if (isset($_GET['id']) && isset($_GET['type'])) {
 	$sId = $_GET['id'];
   $sType = $_GET['type'];
-    
-  $sCacheFile = CONFIG_CACHE_DIRECTORY . "/" . CONFIG_CACHE_PREFIX . "_api_hw_get-sensors_" . $sId . "_" . $sType . ".cache";
-  $iCacheTime = 60 * 10;
-  $sData = "";
   
-  if (file_exists($sCacheFile) && (filemtime($sCacheFile) > (time() - $iCacheTime ))) {
-    $sData = file_get_contents($sCacheFile);
+  //Find the right query to execute
+  if ($sType=="8hours") {
+    $sQuery = "SELECT DATE_FORMAT(datetime,\"%Y-%m-%d %H:%i\") AS t, round(temperature / 10,1) AS te, humidity AS hu FROM hw_thermometerdata WHERE id=\"" . $sId . "\" AND datetime > DATE_SUB(NOW(), interval 8 hour);"; 
   } else {
-	  $sUrl = "http://" . CONFIG_HW_HOST . ":" . CONFIG_HW_PORT . "/" . CONFIG_HW_PASSWORD . "/te/graph/" . $sId . "/" . $sType;
-	
-	  $context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
-	  $sData = file_get_contents($sUrl, false, $context);
-	  file_put_contents($sCacheFile, $sData, LOCK_EX);
+    die("{\"status\": \"error\", \"message\", \"Please supply an id and VALID(!!) type in the url\"}");
   }
-  echo $sData;
+  
+  //Run the query and print results
+  echo "{\"status\": \"ok\", \"response\": [";
+  $bFirst = true;
+  $oResult = $oMysqli->query($sQuery);
+  while ($row = $oResult->fetch_object()) {
+    if ($bFirst) {
+      $bFirst = false;
+      echo json_encode($row);
+    } else {
+      echo ", " . json_encode($row);
+    }
+  }
+  echo "]}";
   
 } else {
-  echo "{\"rhas-status\": \"error\", \"message\", \"Please supply an id and type in the url\"}";
+  die("{\"status\": \"error\", \"message\", \"Please supply an id and type in the url\"}");
 }
-  
-
-
-
 ?>
