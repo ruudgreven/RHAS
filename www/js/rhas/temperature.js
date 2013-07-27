@@ -19,16 +19,16 @@ function startTemperatureReading() {
 		
 		//Start updating temperature every 2 minutes
 		var numberOfThermometers = counter;
-		updateTemperatures(numberOfThermometers, 1000);
-		setInterval("updateTemperatures(" + numberOfThermometers + ", " + 3000 + ")", 120000);
+		updateTemperatures(numberOfThermometers, 50);
+		setInterval("updateTemperatures(" + numberOfThermometers + ", " + 50 + ")", 120000);
 	});
 }
 
 function updateTemperatures(numberOfThermometers, updateOffset) {
-	updateTemperatureFieldsAndImage();
 	for (var i=0; i < numberOfThermometers; i++) {
 		setTimeout("updateTemperatureGraph(" + i + ");", i * updateOffset);
 	}
+	updateTemperatureFieldsAndImage();
 }
 
 function updateTemperatureFieldsAndImage() {
