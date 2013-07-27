@@ -1,8 +1,17 @@
 <?php
+  //Configuration of timezine
+  define('CONFIG_TIMEZONE', 'Europe/Amsterdam');
+  
 	//Configuration of the homewizard
 	define('CONFIG_HW_HOST', '192.168.1.1');
 	define('CONFIG_HW_PORT', '80');
 	define('CONFIG_HW_PASSWORD', 'secret');
+	
+  //Configure database location
+	define('CONFIG_DB_HOSTNAME', '127.0.0.1');
+  define('CONFIG_DB_DATABASE', 'rhas');
+  define('CONFIG_DB_USERNAME', 'root');
+  define('CONFIG_DB_PASSWORD', '');
 	
 	define('CONFIG_CACHE_DIRECTORY', '/../../../cache/');
   define('CONFIG_CACHE_PREFIX', 'rhas');
