@@ -122,12 +122,8 @@ function updateTemperatureGraph(sensorId) {
 			counter++;
 		});
 		
-		//Remove the oldest measures
-		var maxmeasures = 32;
-		var plotdataminimized = plotdata.splice(plotdata.length - maxmeasures, plotdata.length);
-		
 		$("#temperature" + sensorId + "graph").empty();
-		$.jqplot("temperature" + sensorId + "graph",  [plotdataminimized], {
+		$.jqplot("temperature" + sensorId + "graph",  [plotdata], {
 			axes:{
 				xaxis:{
 					renderer:$.jqplot.DateAxisRenderer,
