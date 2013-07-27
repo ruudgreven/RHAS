@@ -87,23 +87,23 @@ function updateTemperatureFieldsAndImage() {
 	});
 	
 	//Update map image
-	var img0 = document.getElementById(imgId);
+	var imgorig = document.getElementById(imgId + "_orig");
+	var imgdest = document.getElementById(imgId);
 
-    var canvas = document.createElement('canvas');
-    var context = canvas.getContext("2d");
-    canvas.width = img0.width;
-    canvas.height = img0.height;
+  var canvas = document.createElement('canvas');
+  var context = canvas.getContext("2d");
+  canvas.width = imgorig.width;
+  canvas.height = imgorig.height;
 
-    // draw the image on the temporary canvas
-    context.drawImage(img0, 0, 0, canvas.width, canvas.height);
+  // draw the image on the temporary canvas
+  context.drawImage(imgorig, 0, 0, canvas.width, canvas.height);
     
-    //RecolorImage
-	recolorImage(canvas, context, oldColors, newColors);
+  //RecolorImage
+  recolorImage(canvas, context, oldColors, newColors);
 	writeText(canvas, context, labelxposes, labelyposes, labeltexts);
     
-    //Put the canvas back on screen
-	var img1 = document.getElementById(imgId);
-    img1.src = canvas.toDataURL('image/png');
+  //Put the canvas back on screen
+  imgdest.src = canvas.toDataURL('image/png');
 }
 
 
