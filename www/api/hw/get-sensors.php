@@ -11,7 +11,7 @@ if (mysqli_connect_errno()) {
 $aTypes = array("switches", "thermometers", "energymeters");
 
 //Create and execute query
-$sQuery = "SET @lastmeasure = (SELECT datetime FROM hw_switchdata ORDER BY datetime LIMIT 1);" .
+$sQuery = "SET @lastmeasure = (SELECT datetime FROM hw_switchdata ORDER BY datetime DESC LIMIT 1);" .
           "SELECT id, status FROM hw_switchdata WHERE datetime = @lastmeasure;" . 
           "SELECT id, round(temperature / 10,1) AS te, humidity AS hu FROM hw_thermometerdata WHERE datetime = @lastmeasure;" . 
           "SELECT id, value FROM hw_energymeterdata WHERE datetime = @lastmeasure;";
