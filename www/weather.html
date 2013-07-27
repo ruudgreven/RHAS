@@ -25,53 +25,52 @@
     
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap-min.js"></script>
-    <script src="js/rhas/helper.js"></script>
-	<script src="js/rhas/temperature.js"></script>
-	
-	<!-- Include jqPlot -->
-	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="lib/jqplot/excanvas.js"></script><![endif]-->
-	<script language="javascript" type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
-	<script language="javascript" type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
-	<script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.cursor.min.js"></script>
-	<script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.highlighter.min.js"></script>
-	<script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.css" />
   </head>
 
   <body>
 	<script>
-		startTemperatureReading();
+		
 	</script>
 	
     <div class="container-narrow">
 
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Inside</a></li>
-          <li><a href="weather.html">Weather</a></li>
+          <li><a href="index.html">Inside</a></li>
+          <li class="active"><a href="#">Weather</a></li>
         </ul>
         <h3 class="muted">RHAS</h3>
       </div>
-
-      <hr>
-
-      <div class="map">
-        <img id="mapimage" src="map/map.png"/>
-      </div>
-
-      <hr>
-
-      <div class="row-fluid sensors">
-        <div class="span6" id="sensorlist1">
-
+      
+			<hr>
+			
+			<hr>
+      <h4>Buienradar</h4>
+      <div class="row-fluid">
+    		<div class="span6">
+        	<a href="http://www.buienradar.nl" target="_new"><img src="http://traffic-583416025.eu-west-1.elb.amazonaws.com/v2/images.aspx" alt="Buienradar NL"/></a>
         </div>
-
-        <div class="span6" id="sensorlist2">
-        
+        <div class="span6">
+        	<a href="http://www.meteox.nl" target="_new"><img src="http://europa.buienradar.nl/images.aspx?jaar=-3&voor=&soort=loop1uur" alt="Buienrader EU"/></a>
         </div>
       </div>
-
+      
       <hr>
+			<h4>KNMI</h4>
+      <div class="row-fluid">
+      	<div class="span8">
+      		<img src="http://www.knmi.nl/actueel/images/tempgmt.png"/>
+      	</div>
+        <div class="span4">
+        	<a href="http://www.knmi.nl/" target="_new"><img src="http://www.knmi.nl/waarschuwingen_en_verwachtingen/images/knmi_web_weersverwachting.png" alt="weersverwachting" title="weersverwachting" border="0" width="220"></a>
+        	&nbsp;&nbsp;
+        	<div style="width: 220; height: 272">
+						<a href="http://www.knmi.nl/" target="_new"><img src="http://www.knmi.nl/waarschuwingen_en_verwachtingen/images/weeralarm_info.gif"  alt="Waarschuwing voor Extreem weer of Weeralarm!" title="Waarschuwing voor Extreem weer of Weeralarm!" border="0" width="220"></a>
+					</div>
+        </div>
+      </div>
+      
+
 
       <div class="footer">
         <p>&copy; Ruud's Home Automation System 2013</p>
