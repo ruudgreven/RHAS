@@ -18,11 +18,11 @@ class SendNotifications implements iSubscript {
     if ($dTemp < $dMin) {
       $sTitle = "Koelkast temperatuur te laag (" . $dTemp . ")";
       $sMessage = "De temperatuur van de koelkast is gemiddeld genomen over de laatste 10 minuten " . $dTemp . ", dat is onder het minimum van " . $dMin;
-      sendnotification($oMysqli, "HW_KOELKAST_TEMP_LOW", $sTitle, $sMessage, 1);
+      sendnotification($oMysqli, "HW_KOELKAST_TEMP_LOW", $sTitle, $sMessage, 30);
     } else if ($dTemp > $dMax) {
       $sTitle = "Koelkast temperatuur te hoog (" . $dTemp . ")";
       $sMessage = "De temperatuur van de koelkast is gemiddeld genomen over de laatste 10 minuten " . $dTemp . ", dat is boven het maximum van " . $dMax;
-      sendnotification($oMysqli, "HW_KOELKAST_TEMP_HIGH", $sTitle, $sMessage, 1);
+      sendnotification($oMysqli, "HW_KOELKAST_TEMP_HIGH", $sTitle, $sMessage, 30);
     }
   }
 }
