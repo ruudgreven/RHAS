@@ -1,10 +1,10 @@
 function startTemperatureReading() {
-  //TODO: Read thermometer names and put them in the boxes
-  
-  
 	//Loads the numbers of temperature sensors and create boxes for them
-	$.getJSON("api/hw/get-sensors.php", function(data) {
-		
+	$.ajax({
+	  url: "api/hw/get-sensors.php",
+	  dataType: "json",
+	  async: true
+	}).done(function(data) {	
 		var counter = 0;
 		$.each(data.response.thermometers, function(i, thermometer) {
 			if (counter % 2 == 0) {
@@ -14,13 +14,20 @@ function startTemperatureReading() {
 			}
 			
 			$(sensorlistname).append("<div id=\"thermometer" + counter + "\" class=\"sensorblock\">" + 
-				"<h4>" + thermometer.id  + "</h4><p>" + 
+				"<h4 id=\"temperature" + thermometer.id + "name\">&nbsp;</h4><p>" + 
 				"Temperature: <strong id=\"temperature" + thermometer.id + "te\">" + thermometer.te + "</strong>, Humidity: <strong id=\"temperature" + thermometer.id + "hu\">" + thermometer.hu + "</strong>" + 
 				"<div id=\"temperature" + thermometer.id + "graph\">&nbsp</div>" +
 			"</p></div>");
 			counter++;
 		});	
 		
+		//Read thermometer names and put them in the boxes
+    $.getJSON("api/hw/get-sensorinfo.php", function(data) {
+      $.each(data.response.thermometers, function(i, thermometer) {
+        $("#temperature" + thermometer.id + "name").html(thermometer.name);
+      });
+    });
+  
 		//Start updating temperature every 2 minutes
 		var numberOfThermometers = counter;
 		updateTemperatures(numberOfThermometers, 50);
@@ -45,7 +52,7 @@ function updateTemperatureFieldsAndImage() {
 	//Read configuration
 	$.ajax({
   		url: "map/mapconfig.json",
- 		dataType: 'json',
+ 		  dataType: 'json',
   		async: false,
 	}).done(function(data) {
 		$.each(data.map.temperaturezones, function(i, temperaturezone) {
@@ -64,8 +71,8 @@ function updateTemperatureFieldsAndImage() {
 	}).done(function(data) {
 		$.each(data.response.thermometers, function(i, thermometer) {
 			//Set fields
-			$("temperature" + thermometer.id + "te").html(thermometer.te);
-			$("temperature" + thermometer.id + "hu").html(thermometer.hu);
+			$("#temperature" + thermometer.id + "te").html(thermometer.te);
+			$("#temperature" + thermometer.id + "hu").html(thermometer.hu);
 			
 			labeltexts[thermometer.id] = thermometer.te;
 			

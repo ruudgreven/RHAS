@@ -8,10 +8,9 @@ $oMysqli = getMysqli();
 $aTypes = array("switches", "thermometers", "energymeters");
 
 //Create and execute query
-$sQuery = "SET @lastmeasure = (SELECT datetime FROM hw_switchdata ORDER BY datetime DESC LIMIT 1);" .
-          "SELECT id, status FROM hw_switchdata WHERE datetime = @lastmeasure;" . 
-          "SELECT id, round(temperature / 10,1) AS te, humidity AS hu FROM hw_thermometerdata WHERE datetime = @lastmeasure;" . 
-          "SELECT id, value FROM hw_energymeterdata WHERE datetime = @lastmeasure;";
+$sQuery = "SELECT * FROM hw_switches;" . 
+          "SELECT * FROM hw_thermometers;" . 
+          "SELECT * FROM hw_energymeters;";
           
 $oMysqli->multi_query($sQuery);
 
