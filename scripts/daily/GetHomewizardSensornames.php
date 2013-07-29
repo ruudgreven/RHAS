@@ -27,7 +27,7 @@ class GetHomewizardSensorNames implements iSubscript {
     //Read energymeters
     foreach($oData->response->energymeters as $oEnergymeter) {
       $oMysqli->query("INSERT INTO hw_energymeters VALUES (" . $oEnergymeter->id . ", \"" . $oEnergymeter->name . "\", " . $oEnergymeter->key . ", " . $oEnergymeter->code . ", " . 
-      ($oEnergymeter->lowbattery == "yes" ? 1 : 0) . ", " . ($oEnergymeter->favorite == "yes" ? 1 : 0) . ");");
+      ($oEnergymeter->lowBattery == "yes" ? 1 : 0) . ", " . ($oEnergymeter->favorite == "yes" ? 1 : 0) . ");");
       echo ".";
     }
   
