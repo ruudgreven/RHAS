@@ -11,7 +11,7 @@ class SendNotifications implements iSubscript {
   }
   
   function checkKoelkast($oMysqli, $iSensorId, $dMin, $dMax) {
-    $sQuery = "SELECT round(avg(temperature)/10,1) AS temp FROM hw_thermometerdata WHERE id=" . $iSensorId . ";";  // AND datetime > DATE_SUB(NOW(), interval 10 minute);";
+    $sQuery = "SELECT round(avg(temperature)/10,1) AS temp FROM hw_thermometerdata WHERE id=" . $iSensorId . " AND datetime > DATE_SUB(NOW(), interval 10 minute);";
     $oResult = $oMysqli->query($sQuery);
     $dTemp = $oResult->fetch_object()->temp;
     
