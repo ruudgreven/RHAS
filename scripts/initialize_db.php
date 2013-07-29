@@ -4,24 +4,46 @@
   $oMysqli = getMysqli();
 
 	echo "Creating tables for Homewizard...";
-  //Create table for switches
+	//Create table for switchinformation
+	$oMysqli->query("CREATE TABLE IF NOT EXISTS hw_switches (id INT, name varchar(32), dimmer BOOL, favorite BOOL, PRIMARY KEY (id));");
+	
+	//Skip uvmeters
+  //Skip windmeters
+  //Skip uvmeters
+  
+	//Create table for thermometerinformation
+	$oMysqli->query("CREATE TABLE IF NOT EXISTS hw_thermometers (id INT, name varchar(32), favorite BOOL, PRIMARY KEY (id));");
+	
+	//Create table for energymeterinformation
+	$oMysqli->query("CREATE TABLE IF NOT EXISTS hw_energymeters (id INT, name varchar(32), thekey SMALLINT UNSIGNED, code SMALLINT UNSIGNED, lowbattery BOOL, favorite BOOL, PRIMARY KEY (id));");
+	
+	//Skip energylinks
+  //Skip heatlinks
+  //Skip scenes
+  //Skip somfy
+
+  //Skip kakusensors
+  
+  
+	
+  //Create table for switchdata
   $oMysqli->query("CREATE TABLE IF NOT EXISTS hw_switchdata (datetime TIMESTAMP, id INT, status BOOL, PRIMARY KEY (datetime,id));");
   
   //Skip uvmeters
   //Skip windmeters
   //Skip uvmeters
   
-  //Create table for thermometers
+  //Create table for thermometerdata
   $oMysqli->query("CREATE TABLE IF NOT EXISTS hw_thermometerdata (datetime TIMESTAMP, id INT, temperature SMALLINT SIGNED, humidity SMALLINT UNSIGNED, PRIMARY KEY (datetime,id));");
   
-  //Create table for energymeters
+  //Create table for energymeterdata
   $oMysqli->query("CREATE TABLE IF NOT EXISTS hw_energymeterdata (datetime TIMESTAMP, id INT, value SMALLINT UNSIGNED, PRIMARY KEY (datetime,id));");
   
   //Skip energylinks
   //Skip heatlinks
   //Skip scenes
   //Skip somfy
-  
+
   //Skip kakusensors
   
   echo "OK!\n";
