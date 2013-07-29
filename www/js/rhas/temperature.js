@@ -114,6 +114,9 @@ function updateTemperatureFieldsAndImage() {
     
   //Put the canvas back on screen
   imgdest.src = canvas.toDataURL('image/png');
+  
+  //Report to parent that were done!
+  parent.loadingDone(document.body.scrollHeight)
 }
 
 

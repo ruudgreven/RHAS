@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+	  <link href="css/rhas.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+    
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap-min.js"></script>
+    <script src="js/rhas/helper.js"></script>
+	<script src="js/rhas/temperature.js"></script>
+	
+	<!-- Include jqPlot -->
+	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="lib/jqplot/excanvas.js"></script><![endif]-->
+	<script language="javascript" type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
+	<script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.cursor.min.js"></script>
+	<script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.highlighter.min.js"></script>
+	<script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.css" />
+	
+	<script>
+    $(document).ready(function() {
+      startTemperatureReading();
+    });
+  </script>
+  
+  </head>
+  <body>
+    <div class="container-narrow">
+
+      <div class="map">
+        <img id="mapimage_orig" src="map/map.png" style="display: none;"/>
+        <img id="mapimage"/>
+      </div>
+
+      <hr>
+
+      <div class="row-fluid sensors">
+        <div class="span6" id="sensorlist1">
+
+        </div>
+
+        <div class="span6" id="sensorlist2">
+        
+        </div>
+      </div>
+
+      <hr>
+
+    </div> <!-- /container -->
+  </body>
+</html>
