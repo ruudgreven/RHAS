@@ -12,4 +12,8 @@
   define('CONFIG_DB_DATABASE', 'rhas');
   define('CONFIG_DB_USERNAME', 'root');
   define('CONFIG_DB_PASSWORD', '');
+  
+  	//Configure PushOver keys
+	define('CONFIG_PUSHOVER_APPTOKEN', 'app_token');
+	define('CONFIG_PUSHOVER_USERKEY', 'user_key');
 ?>

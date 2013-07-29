@@ -1,4 +1,4 @@
 #!/bin/sh
 BASEDIR=$(dirname $0)
 cd $BASEDIR
-php gethomewizarddata.php
+php run_periodically.php daily
