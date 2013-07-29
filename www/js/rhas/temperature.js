@@ -1,7 +1,7 @@
 function startTemperatureReading() {
 	//Loads the numbers of temperature sensors and create boxes for them
 	$.ajax({
-	  url: "api/hw/get-sensors.php",
+	  url: "api/hw/get-sensorinfo.php",
 	  dataType: "json",
 	  async: true
 	}).done(function(data) {	
@@ -13,20 +13,13 @@ function startTemperatureReading() {
 				sensorlistname = "#sensorlist2";
 			}
 			
-			$(sensorlistname).append("<div id=\"thermometer" + counter + "\" class=\"sensorblock\">" + 
-				"<h4 id=\"temperature" + thermometer.id + "name\">&nbsp;</h4><p>" + 
-				"Temperature: <strong id=\"temperature" + thermometer.id + "te\">" + thermometer.te + "</strong>, Humidity: <strong id=\"temperature" + thermometer.id + "hu\">" + thermometer.hu + "</strong>" + 
+			$(sensorlistname).append("<div id=\"thermometer" + thermometer.id + "\" class=\"sensorblock\">" + 
+				"<h4>" + thermometer.name + "</h4><p>" + 
+				"Temperature: <strong id=\"temperature" + thermometer.id + "te\">&nbsp;</strong>, Humidity: <strong id=\"temperature" + thermometer.id + "hu\">&nbsp;</strong>" + 
 				"<div id=\"temperature" + thermometer.id + "graph\">&nbsp</div>" +
 			"</p></div>");
 			counter++;
 		});	
-		
-		//Read thermometer names and put them in the boxes
-    $.getJSON("api/hw/get-sensorinfo.php", function(data) {
-      $.each(data.response.thermometers, function(i, thermometer) {
-        $("#temperature" + thermometer.id + "name").html(thermometer.name);
-      });
-    });
   
 		//Start updating temperature every 2 minutes
 		var numberOfThermometers = counter;
@@ -99,11 +92,11 @@ function updateTemperatureFieldsAndImage() {
 	
 	for (var i=0; i < oldColors.length; i++) {
 	  if (!(i in newColors)) {
-	    newColors[i] = "#FFFFFF";
+	    newColors[i] = "#999999";
 	  } 
 	}
 	
-	//Update map image
+	//Update map image (takes a long time)
 	var imgorig = document.getElementById(imgId + "_orig");
 	var imgdest = document.getElementById(imgId);
 
@@ -135,37 +128,38 @@ function updateTemperatureGraph(sensorId) {
 			counter++;
 		});
 		
-		$("#temperature" + sensorId + "graph").empty();
-		$.jqplot("temperature" + sensorId + "graph",  [plotdata], {
-			axes:{
-				xaxis:{
-					renderer:$.jqplot.DateAxisRenderer,
-					tickOptions: {
-						formatString:'%H'
-					},
-          			tickInterval:'1 hour'
-				},
-			},
-			seriesDefaults: {
-				color: '#0088CC',
-				lineWidth: 5,
-				markerOptions: {
-					show: false
-				}
-			},
-			cursor: {
-				show: true,
-				style: 'crosshair',
-				showTooltip: true
-			},
-			highlighter: {
-				show: true,
-				lineWidthAdjust: 10,
-				tooltipAxes: 'y',
-				useAxesFormatters: false,
-				tooltipFormatString: '%.1f'
-			}
-		});
-		//alert(data);
+		if($("#temperature" + sensorId + "graph").length != 0) {
+		  $("#temperature" + sensorId + "graph").empty();
+      $.jqplot("temperature" + sensorId + "graph",  [plotdata], {
+        axes:{
+          xaxis:{
+            renderer:$.jqplot.DateAxisRenderer,
+            tickOptions: {
+              formatString:'%H'
+            },
+                  tickInterval:'1 hour'
+          },
+        },
+        seriesDefaults: {
+          color: '#0088CC',
+          lineWidth: 5,
+          markerOptions: {
+            show: false
+          }
+        },
+        cursor: {
+          show: true,
+          style: 'crosshair',
+          showTooltip: true
+        },
+        highlighter: {
+          show: true,
+          lineWidthAdjust: 10,
+          tooltipAxes: 'y',
+          useAxesFormatters: false,
+          tooltipFormatString: '%.1f'
+        }
+      });
+		}
 	});
 }
