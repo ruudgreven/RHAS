@@ -20,13 +20,14 @@ class GetHomewizardData implements iSubscript {
   
     //Read thermometers
     foreach($oData->response->thermometers as $oThermometer) {
-      $oMysqli->query("INSERT INTO hw_thermometerdata VALUES (\"" . $sTimestamp . "\", " . $oThermometer->id . ", " . $oThermometer->te * 10 . ", " . $oThermometer->hu . ");");
+      $oMysqli->query("INSERT INTO hw_thermometerdata VALUES (\"" . $sTimestamp . "\", " . $oThermometer->id . ", " . 
+      ($oThermometer->te!="null" ? $oThermometer->te * 10 : "NULL"). ", " . ($oThermometer->hu !="null" ? $oThermometer->hu : "NULL") . ");");
       echo "*";
     }
   
     //Read energymeters
     foreach($oData->response->energymeters as $oEnergymeter) {
-      $oMysqli->query("INSERT INTO hw_energymeterdata VALUES (\"" . $sTimestamp . "\", " . $oEnergymeter->id . ", " . $oEnergymeter->po . ");");
+      $oMysqli->query("INSERT INTO hw_energymeterdata VALUES (\"" . $sTimestamp . "\", " . $oEnergymeter->id . ", " . ($oEnergymeter->po!="null" ? $oEnergymeter->po : "NULL") . ");");
       echo ".";
     }
   
