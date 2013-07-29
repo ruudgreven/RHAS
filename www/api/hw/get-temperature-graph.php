@@ -14,7 +14,7 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
   
   //Find the right query to execute
   if ($sType=="8hours") {
-    $sQuery = "SELECT DATE_FORMAT(datetime,\"%Y-%m-%d %H:%i\") AS t, round(temperature / 10,1) AS te, humidity AS hu FROM hw_thermometerdata WHERE id=\"" . $sId . "\" AND datetime > DATE_SUB(NOW(), interval 8 hour);"; 
+    $sQuery = "SELECT DATE_FORMAT(datetime,\"%Y-%m-%d %H:%i\") AS t, round(temperature / 10,1) AS te, humidity AS hu FROM hw_thermometerdata WHERE id=\"" . $sId . "\" AND datetime > DATE_SUB(NOW(), interval 8 hour) AND mod(minute(datetime),10) = 0;"; 
   } else {
     die("{\"status\": \"error\", \"message\", \"Please supply an id and VALID(!!) type in the url\"}");
   }
