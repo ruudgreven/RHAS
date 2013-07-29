@@ -8,10 +8,7 @@ $sPeriod = $argv[1];
 date_default_timezone_set(CONFIG_TIMEZONE);
 
 //Open database connection
-$oMysqli = new mysqli(CONFIG_DB_HOSTNAME, CONFIG_DB_USERNAME, CONFIG_DB_PASSWORD, CONFIG_DB_DATABASE);
-if (mysqli_connect_errno()) {
-  die('{"status": "failed", "error": "'  . addslashes(mysqli_error()) . '"}');
-}
+$oMysqli = getMysqli();
     
 //Iterate over scriptfiles  
 if ($hDir = opendir(dirname(__FILE__) . "/" . $sPeriod)) {
