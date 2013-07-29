@@ -97,6 +97,12 @@ function updateTemperatureFieldsAndImage() {
 		});
 	});
 	
+	for (var i=0; i < oldColors.length; i++) {
+	  if (!(i in newColors)) {
+	    newColors[i] = "#FFFFFF";
+	  } 
+	}
+	
 	//Update map image
 	var imgorig = document.getElementById(imgId + "_orig");
 	var imgdest = document.getElementById(imgId);
