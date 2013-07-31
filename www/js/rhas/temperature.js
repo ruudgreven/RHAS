@@ -1,4 +1,5 @@
 function startTemperatureReading() {
+
 	//Loads the numbers of temperature sensors and create boxes for them
 	doApiCall("hw", "GetSensorInfo", {}, true, function(data) {	
 		var counter = 0;
@@ -106,9 +107,6 @@ function updateTemperatureFieldsAndImage() {
     
   //Put the canvas back on screen
   imgdest.src = canvas.toDataURL('image/png');
-  
-  //Report to parent that were done!
-  parent.loadingDone(document.body.scrollHeight)
 }
 
 

@@ -1,5 +1,5 @@
 function loadPage(page) {
-  $('#content').load(page + '.html');
+  $('#content').load(page + '.phtml');
 }
 
 function doApiCall(subsystem, functionname, params, async, callback) {
@@ -11,7 +11,7 @@ function doApiCall(subsystem, functionname, params, async, callback) {
   $.each(params, function( key, value ) {
     url = url + "&" + encodeURIComponent(key) + "=" + encodeURIComponent(value);
   });
-  var hashstring = String.trim(localStorage.privatekey + ":" + url);
+  var hashstring = localStorage.privatekey + ":" + url;
   var hash = "" + CryptoJS.SHA256(hashstring); 
   
   //Do request
