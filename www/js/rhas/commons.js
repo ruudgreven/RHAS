@@ -1,5 +1,5 @@
 function loadPage(page) {
-  $('#content').load(page + '.phtml');
+  $('#content').load(page + '.html');
 }
 
 function doApiCall(subsystem, functionname, params, async, callback) {
