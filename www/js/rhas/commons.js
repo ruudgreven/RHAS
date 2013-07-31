@@ -11,7 +11,7 @@ function doApiCall(subsystem, functionname, params, async, callback) {
   $.each(params, function( key, value ) {
     url = url + "&" + encodeURIComponent(key) + "=" + encodeURIComponent(value);
   });
-  var hashstring = localStorage.privatekey + ":" + url;
+  var hashstring = privatekey + ":" + url;
   var hash = "" + CryptoJS.SHA256(hashstring); 
   
   //Do request
@@ -21,10 +21,10 @@ function doApiCall(subsystem, functionname, params, async, callback) {
 	  data: {hash: hash},
 	  async: async
 	}).fail(function(jqXHR, textStatus) {
-    alert( "API Request failed: " + textStatus );
+    alert( "API Request failed (failed): " + textStatus );
   }).done(function(data) {
-    if (data.status!="ok") {
-      alert("API Request failed: " + data.error);
+    if (data.status=="failed") {
+      alert("API Request failed (done): " + data.error);
     }
     callback(data);
   });

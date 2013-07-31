@@ -42,28 +42,32 @@ if (is_file($sFile)) {
     //Find userkey in database
     $oMysqli = getMysqli();
     if ($oResult = $oMysqli->query("SELECT privatekey, level FROM users WHERE name = '" . mysql_real_escape_string($sUsername) . "';")) {
-      $oUser = $oResult->fetch_object();
-      $sPrivateKey = trim($oUser->privatekey);
-      $iLevel = $oUser->level;
+      if ($oResult->num_rows==1) {
+        $oUser = $oResult->fetch_object();
+        $sPrivateKey = trim($oUser->privatekey);
+        $iLevel = $oUser->level;
   
-      //Do hashing
-      $sUrl = $_SERVER['REQUEST_URI'];
-      $sUrl = substr($sUrl, strpos($sUrl, "api/api.php"));
-      $sHashUrl = preg_replace('/&hash=[a-z0-9]*/i', "", $sUrl);
-      $sHashString = trim($sPrivateKey . ":" . $sHashUrl);
+        //Do hashing
+        $sUrl = $_SERVER['REQUEST_URI'];
+        $sUrl = substr($sUrl, strpos($sUrl, "api/api.php"));
+        $sHashUrl = preg_replace('/&hash=[a-z0-9]*/i', "", $sUrl);
+        $sHashString = trim($sPrivateKey . ":" . $sHashUrl);
 
-      $sServerHash = hash("sha256", $sHashString);
+        $sServerHash = hash("sha256", $sHashString);
 
-      //Check authorisation
-      if ($sServerHash == $sClientHash) {
-        //Ok, authorisation OK. Now check clearance level
-         if ($oSubscript->allowAccess($iLevel)) {
-          $oSubscript->execute($aFunctionAttributes);
-         } else {
-          die('{"status": "unauthorized", "error": "Youre not allowed to access this method"}');
-         }
+        //Check authorisation
+        if ($sServerHash == $sClientHash) {
+          //Ok, authorisation OK. Now check clearance level
+           if ($oSubscript->allowAccess($iLevel)) {
+            $oSubscript->execute($aFunctionAttributes);
+           } else {
+            die('{"status": "unauthorized", "error": "Youre not allowed to access this method"}');
+           }
+        } else {
+          die('{"status": "unauthorized", "error": "The hash did not match any valid one"}');
+        }
       } else {
-        die('{"status": "unauthorized", "error": "The hash did not match any valid one"}');
+        die('{"status": "unauthorized", "error": "Unknown user"}');
       }
     } else {
       die('{"status": "failed", "error": "Database error"}');
