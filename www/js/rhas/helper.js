@@ -1,3 +1,8 @@
+function sendRequest() {
+  
+}
+
+
 function interpolateColor(minColor,maxColor,maxDepth,depth){
 
     function d2h(d) {return d.toString(16);}

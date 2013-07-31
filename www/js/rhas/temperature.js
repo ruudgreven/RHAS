@@ -1,7 +1,7 @@
 function startTemperatureReading() {
 	//Loads the numbers of temperature sensors and create boxes for them
 	$.ajax({
-	  url: "api/hw/get-sensorinfo.php",
+	  url: getApiUrl("hw", "getSensorInfo", {}),
 	  dataType: "json",
 	  async: true
 	}).done(function(data) {	
@@ -58,7 +58,7 @@ function updateTemperatureFieldsAndImage() {
 	//Get sensordata
 	var newColors = new Array();
 	$.ajax({
-		url: "api/hw/get-sensors.php", 
+		url: getApiUrl("hw", "getSensors", {}), 
 		dataType: 'json', 
 		async: false,
 	}).done(function(data) {
@@ -121,7 +121,7 @@ function updateTemperatureFieldsAndImage() {
 
 
 function updateTemperatureGraph(sensorId) {
-	$.getJSON("api/hw/get-temperature-graph.php?id=" + sensorId + "&type=8hours", function(data) {
+	$.getJSON(getApiUrl("hw", "getTemperatureGraph", {"sensorId": sensorId, "graphType": "8hours"}), function(data) {
 		var plotdata = new Array();
 		var counter = 0;
 		$.each(data.response, function(i, measure) {

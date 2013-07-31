@@ -10,6 +10,16 @@ interface iSubscript
 }
 
 /**
+ * An interface for API calls
+ */
+interface iApiFunction
+{
+    public function allowAccess($iLevel);
+    public function execute($aArgs);
+}
+
+
+/**
  * Returns a connection to mysql
  */
 function getMysqli() {

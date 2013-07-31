@@ -3,6 +3,12 @@
   
   $oMysqli = getMysqli();
 
+  echo "Creating system tables...";
+  //Create table for users
+	$oMysqli->query("CREATE TABLE IF NOT EXISTS users (id INT, level SMALLINT, name varchar(32), privatekey varchar(64), PRIMARY KEY (id, name));");
+	
+  echo "OK!\n";
+
 	echo "Creating tables for Homewizard...";
 	//Create table for switchinformation
 	$oMysqli->query("CREATE TABLE IF NOT EXISTS hw_switches (id INT, name varchar(32), dimmer BOOL, favorite BOOL, PRIMARY KEY (id));");
