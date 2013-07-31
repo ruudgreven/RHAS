@@ -24,15 +24,3 @@ body {
 #loader {
   text-align: center;
 }
-
-#contentframe {
-  position: relative;
-  width: 800px;
-  left: -50px;
-  
-  height: 300px;
-  background-color: transparent;
-  border: 0px none transparent;
-  padding: 0px;
-  overflow: hidden;
-}
