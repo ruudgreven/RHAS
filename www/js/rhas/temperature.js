@@ -34,7 +34,7 @@ function updateTemperatures(numberOfThermometers, updateOffset) {
 
 function updateTemperatureFieldsAndImage() {
 	var imgId = "mapimage";
-	var oldColors = new Array();
+	var points = new Array();
 	var labelxposes = new Array();
 	var labelyposes = new Array();
 	var labeltexts = new Array();
@@ -46,7 +46,7 @@ function updateTemperatureFieldsAndImage() {
   		async: false,
 	}).done(function(data) {
 		$.each(data.map.temperaturezones, function(i, temperaturezone) {
-			oldColors[temperaturezone.sensorid] = temperaturezone.color;
+			points[temperaturezone.sensorid] = temperaturezone.points;
 			labelxposes[temperaturezone.sensorid] = temperaturezone.labelposx;
 			labelyposes[temperaturezone.sensorid] = temperaturezone.labelposy;
 		});
@@ -83,26 +83,26 @@ function updateTemperatureFieldsAndImage() {
 		});
 	});
 	
-	for (var i=0; i < oldColors.length; i++) {
-	  if (!(i in newColors)) {
-	    newColors[i] = "#999999";
-	  } 
-	}
-	
 	//Update map image (takes a long time)
-	var imgorig = document.getElementById(imgId + "_orig");
 	var imgdest = document.getElementById(imgId);
 
   var canvas = document.createElement('canvas');
   var context = canvas.getContext("2d");
-  canvas.width = imgorig.width;
-  canvas.height = imgorig.height;
+  canvas.width = imgdest.width;
+  canvas.height = imgdest.height;
 
   // draw the image on the temporary canvas
-  context.drawImage(imgorig, 0, 0, canvas.width, canvas.height);
+  context.drawImage(imgdest, 0, 0, canvas.width, canvas.height);
     
-  //RecolorImage
-  recolorImage(canvas, context, oldColors, newColors);
+  //write rectangles for every room
+  for (var i=0; i < points.length; i++) {
+	  if (!(i in newColors)) {
+	    newColors[i] = "#999999";
+	  }
+	  drawShape(context, newColors[i], points[i]); 
+	}
+  
+  //Write labels
 	writeText(canvas, context, labelxposes, labelyposes, labeltexts);
     
   //Put the canvas back on screen

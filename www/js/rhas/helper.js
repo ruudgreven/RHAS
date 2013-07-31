@@ -30,33 +30,15 @@ function interpolateColor(minColor,maxColor,maxDepth,depth){
     return color;
 }
 
-function recolorImage(canvas, context, oldColors, newColors) {
-	function h2d(h) {return parseInt(h,16);}
-	
-    // pull the entire image into an array of pixel data
-    var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-
-    // examine every pixel, 
-    // change any old rgb to the new-rgb
-    for (var i = 0; i < imageData.data.length; i += 4) {
-    	for (var j = 0; j < oldColors.length; j++) {
-    		var oldRed = h2d(oldColors[j].substr(1,2));
-			var oldGreen = h2d(oldColors[j].substr(3,2));
-			var oldBlue = h2d(oldColors[j].substr(5,2));
-			var newRed = h2d(newColors[j].substr(1,2));
-			var newGreen = h2d(newColors[j].substr(3,2));
-			var newBlue = h2d(newColors[j].substr(5,2));
-				
-			if (imageData.data[i] == oldRed && imageData.data[i + 1] == oldGreen && imageData.data[i + 2] == oldBlue) {
-            	// change to your new rgb
-            	imageData.data[i] = newRed;
-            	imageData.data[i + 1] = newGreen;
-            	imageData.data[i + 2] = newBlue;
-        	}
-    	}
-    }
-    // put the altered data back on the canvas  
-    context.putImageData(imageData, 0, 0);
+function drawShape(context, fillcolor, poly) {
+  context.beginPath();
+  context.fillStyle=fillcolor;
+  context.moveTo(poly[0], poly[1]);
+  for( item=2 ; item < poly.length-1 ; item+=2 ){
+    context.lineTo( poly[item] , poly[item+1]);
+  }
+  context.closePath();
+  context.fill();
 }
 
 function writeText(canvas, context, xposes, yposes, text) {

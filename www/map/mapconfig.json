@@ -3,31 +3,31 @@
 		"temperaturezones": [
 			{
 				"sensorid": 0,
-				"color": "#00FF00",
+				"points": [93,5, 330,5, 330,174, 359,174, 359,5, 423,5, 423,240, 93,240],
 				"labelposx": 200,
 				"labelposy": 135
 			},
 			{
 				"sensorid": 1,
-				"color": "#FF0000",
+				"points": [5,5, 84,5, 84,240, 5,240],
 				"labelposx": 30,
 				"labelposy": 135
 			},
 			{
 				"sensorid": 2,
-				"color": "#FFFF00",
+				"points": [585,5, 695,5, 695,174, 585,174],
 				"labelposx": 640,
 				"labelposy": 85
 			},
 			{
 				"sensorid": 3,
-				"color": "#0000FF",
+				"points": [432,5, 580,5, 580,174, 432,174],
 				"labelposx": 500,
 				"labelposy": 85
 			},
 			{
 				"sensorid": 4,
-				"color": "#FF00FF",
+				"points": [334,146, 356,146, 356,171, 334,171],
 				"labelposx": 360,
 				"labelposy": 165
 			}
