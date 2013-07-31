@@ -15,7 +15,7 @@ interface iSubscript
 interface iApiFunction
 {
     public function allowAccess($iLevel);
-    public function execute($aArgs);
+    public function execute($iLevel, $aArgs);
 }
 
 

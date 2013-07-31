@@ -5,7 +5,7 @@ class GetTemperatureGraph implements iApiFunction {
     return true; //Allow access for every level
   }
   
-  public function execute($aArgs) {
+  public function execute($iLevel, $aArgs) {
     //Open database connection
     $oMysqli = getMysqli();
 

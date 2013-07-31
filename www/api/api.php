@@ -29,6 +29,11 @@ foreach ( $_GET as $sKey => $sValue ) {
   }
 }
 
+//Security checks on filenames
+if (!preg_match("/[a-z0-9A-Z]/", $sSubsystem) || !preg_match("/[a-z0-9A-Z]/", $sFunctionname)) {
+  die('{"status": "failed", "error": "Seems you\'re doing something nasty. Go away!"}');
+}
+
 //Finds API function
 $sFile  = dirname(__FILE__) . "/../../inc/api/" . $sSubsystem . "/" . $sFunctionname . ".inc.php";
 if (is_file($sFile)) {
@@ -36,7 +41,7 @@ if (is_file($sFile)) {
   $oSubscript = new $sFunctionname;
   //Try if the function accepts anonymous acces
   if ($oSubscript->allowAccess(0)) {
-    $oSubscript->execute($aFunctionAttributes);
+    $oSubscript->execute(0, $aFunctionAttributes);
   } else {
     //No anonymous access allow, find the user privatekey and level and check them with the supplied arguments
     //Find userkey in database
@@ -59,9 +64,9 @@ if (is_file($sFile)) {
         if ($sServerHash == $sClientHash) {
           //Ok, authorisation OK. Now check clearance level
            if ($oSubscript->allowAccess($iLevel)) {
-            $oSubscript->execute($aFunctionAttributes);
+            $oSubscript->execute($iLevel, $aFunctionAttributes);
            } else {
-            die('{"status": "unauthorized", "error": "Youre not allowed to access this method"}');
+            die('{"status": "unauthorized", "error": "You\'re not allowed to access this method"}');
            }
         } else {
           die('{"status": "unauthorized", "error": "The hash did not match any valid one"}');

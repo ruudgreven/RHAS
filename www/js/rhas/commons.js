@@ -29,3 +29,7 @@ function doApiCall(subsystem, functionname, params, async, callback) {
     callback(data);
   });
 }
+
+function showAlert(alertdiv, alertclass, text) {
+  $('#' + alertdiv).html("<div class=\"alert " + alertclass + "\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>" + text + "</div>");
+}

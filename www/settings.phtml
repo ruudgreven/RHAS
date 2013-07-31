@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <script src="js/rhas/settings.js"></script>
 
-<h4>Login voor API</h4>
-<div id="alert_failed" class="alert alert-danger">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>Warning!</strong> User seems not valid.
-</div>
-
-<div id="alert_ok" class="alert alert-success">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  Users seems ok. Settings saved!
-</div>
+<h4>Login for API</h4>
 
 <div class="row-fluid">
+  <div id="alertzone"></div>
   <form>
     Username: <input type="text" id="username"/><br/>
     Private key: <input type="text" id="privatekey"/><br/>
   </form>
-  <button onClick="saveLoginForAPI($('#username').val(), $('#privatekey').val());">Opslaan</button><br/>
+  <button onClick="saveLoginForAPI($('#username').val(), $('#privatekey').val());">Opslaan</button>&nbsp;
+  <button onClick="clearCredentials();">Clear current credentials</button><br/>
   &nbsp;<br/>
 </div>
 
+<h4>Check clearance level</h4>
+Your active clearance level is <strong id="clearancelevel">#</strong>. &nbsp;<button onClick="getClearanceLevel();">Check!</button><br/>
+&nbsp;
 <script>
   startSettings();
 </script>
