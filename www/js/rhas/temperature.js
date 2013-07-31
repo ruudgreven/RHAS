@@ -1,6 +1,6 @@
 function startTemperatureReading() {
 	//Loads the numbers of temperature sensors and create boxes for them
-	doApiCall("hw", "getSensorInfo", {}, true, function(data) {	
+	doApiCall("hw", "GetSensorInfo", {}, true, function(data) {	
 		var counter = 0;
 		$.each(data.response.thermometers, function(i, thermometer) {
 			if (counter % 2 == 0) {
@@ -53,7 +53,7 @@ function updateTemperatureFieldsAndImage() {
 	
 	//Get sensordata
 	var newColors = new Array();
-	doApiCall("hw", "getSensors", {}, false, function(data) {
+	doApiCall("hw", "GetSensors", {}, false, function(data) {
 		$.each(data.response.thermometers, function(i, thermometer) {
 			//Set fields
 			$("#temperature" + thermometer.id + "te").html(thermometer.te);
@@ -113,7 +113,7 @@ function updateTemperatureFieldsAndImage() {
 
 
 function updateTemperatureGraph(sensorId) {
-	doApiCall("hw", "getTemperatureGraph", {"sensorId": sensorId, "graphType": "8hours"}, true, function(data) {
+	doApiCall("hw", "GetTemperatureGraph", {"sensorId": sensorId, "graphType": "8hours"}, true, function(data) {
 		var plotdata = new Array();
 		var counter = 0;
 		$.each(data.response, function(i, measure) {

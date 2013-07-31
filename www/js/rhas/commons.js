@@ -24,7 +24,7 @@ function doApiCall(subsystem, functionname, params, async, callback) {
     alert( "API Request failed: " + textStatus );
   }).done(function(data) {
     if (data.status!="ok") {
-      alert("API Request failed: " + data.message);
+      alert("API Request failed: " + data.error);
     }
     callback(data);
   });

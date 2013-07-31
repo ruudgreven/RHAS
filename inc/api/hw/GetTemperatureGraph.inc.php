@@ -18,7 +18,7 @@ class GetTemperatureGraph implements iApiFunction {
       if ($sType=="8hours") {
         $sQuery = "SELECT DATE_FORMAT(datetime,\"%Y-%m-%d %H:%i\") AS t, round(temperature / 10,1) AS te, humidity AS hu FROM hw_thermometerdata WHERE id=\"" . $sId . "\" AND datetime > DATE_SUB(NOW(), interval 8 hour) AND mod(minute(datetime),10) = 0;"; 
       } else {
-        die("{\"status\": \"error\", \"message\", \"Please supply an sensorId and VALID(!!) graphType in the url\"}");
+        die("{\"status\": \"failed\", \"error\", \"Please supply an sensorId and VALID(!!) graphType in the url\"}");
       }
   
       //Run the query and print results
@@ -36,7 +36,7 @@ class GetTemperatureGraph implements iApiFunction {
       echo "]}";
   
     } else {
-      die("{\"status\": \"error\", \"message\", \"Please supply an id and type in the url\"}");
+      die("{\"status\": \"failed\", \"error\", \"Please supply an id and type in the url\"}");
     }
   }
 }
