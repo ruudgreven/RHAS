@@ -77,12 +77,12 @@ TemperaturePage.prototype.updateTemperatureFieldsAndImage = function() {
 			}
 			
 			colors[thermometer.id] = newcolor;
-			
-			//Update map
-			obj.map.clear();
-			obj.map.drawTemperature(colors, texts);
-			obj.map.drawOnScreen();
 		});
+		
+		//Update map
+		obj.map.clear();
+		obj.map.drawTemperature(colors, texts);
+		obj.map.drawOnScreen();
 	});
 }
 
