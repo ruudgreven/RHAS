@@ -1,5 +1,12 @@
-function startTemperatureReading() {
+TemperaturePage = function(mapimageorig, mapimage) {
+  this.map = new HouseMap(mapimageorig, mapimage);
+}
 
+/**
+ * Start with temperature readings and keep them doing until forever ;-)
+ */
+TemperaturePage.prototype.start = function() {
+  var obj = this;
 	//Loads the numbers of temperature sensors and create boxes for them
 	doApiCall("hw", "GetSensorInfo", {}, true, function(data) {	
 		var counter = 0;
@@ -20,47 +27,37 @@ function startTemperatureReading() {
   
 		//Start updating temperature every 2 minutes
 		var numberOfThermometers = counter;
-		updateTemperatures(numberOfThermometers, 50);
-		setInterval("updateTemperatures(" + numberOfThermometers + ", " + 50 + ")", 120000);
+		obj.updateTemperatures(numberOfThermometers, 50);
+		setInterval("this.updateTemperatures(" + numberOfThermometers + ", " + 50 + ")", 120000);
 	});
 }
 
-function updateTemperatures(numberOfThermometers, updateOffset) {
+/**
+ * Update all the temperature viewings
+ */
+TemperaturePage.prototype.updateTemperatures = function(numberOfThermometers, updateOffset) {
 	for (var i=0; i < numberOfThermometers; i++) {
-		updateTemperatureGraph(i);
+		this.updateTemperatureGraph(i);
 	}
-	updateTemperatureFieldsAndImage();
+	this.updateTemperatureFieldsAndImage();
 }
 
-function updateTemperatureFieldsAndImage() {
-	var imgId = "mapimage";
-	var points = new Array();
-	var labelxposes = new Array();
-	var labelyposes = new Array();
-	var labeltexts = new Array();
-	
-	//Read configuration
-	$.ajax({
-  		url: "map/mapconfig.json",
- 		  dataType: 'json',
-  		async: false,
-	}).done(function(data) {
-		$.each(data.map.temperaturezones, function(i, temperaturezone) {
-			points[temperaturezone.sensorid] = temperaturezone.points;
-			labelxposes[temperaturezone.sensorid] = temperaturezone.labelposx;
-			labelyposes[temperaturezone.sensorid] = temperaturezone.labelposy;
-		});
-	});
-	
+/**
+ * Get current sensor readings and place them in the textfields and on the map
+ */
+TemperaturePage.prototype.updateTemperatureFieldsAndImage = function() {
+  var obj = this;
 	//Get sensordata
-	var newColors = new Array();
 	doApiCall("hw", "GetSensors", {}, false, function(data) {
+	  var colors = new Array();
+	  var texts = new Array();
+	  
 		$.each(data.response.thermometers, function(i, thermometer) {
 			//Set fields
 			$("#temperature" + thermometer.id + "te").html(thermometer.te);
 			$("#temperature" + thermometer.id + "hu").html(thermometer.hu);
 			
-			labeltexts[thermometer.id] = thermometer.te;
+			texts[thermometer.id] = thermometer.te;
 			
 			//Calculate temperature to offset for color interpolator, offset is -25 celcius
 			var offset = 250 + (thermometer.te * 10);
@@ -79,39 +76,21 @@ function updateTemperatureFieldsAndImage() {
 				newcolor = "#330000";
 			}
 			
-			newColors[thermometer.id] = newcolor;
+			colors[thermometer.id] = newcolor;
+			
+			//Update map
+			obj.map.clear();
+			obj.map.drawTemperature(colors, texts);
+			obj.map.drawOnScreen();
 		});
 	});
-	
-	//Update map image (takes a long time)
-	var imgsrc = document.getElementById(imgId + "_orig");
-  var imgdest = document.getElementById(imgId);
-  
-  var canvas = document.createElement('canvas');
-  var context = canvas.getContext("2d");
-  canvas.width = imgsrc.width;
-  canvas.height = imgsrc.height;
-
-  // draw the image on the temporary canvas
-  context.drawImage(imgsrc, 0, 0, canvas.width, canvas.height);
-    
-  //write rectangles for every room
-  for (var i=0; i < points.length; i++) {
-	  if (!(i in newColors)) {
-	    newColors[i] = "#999999";
-	  }
-	  drawShape(context, newColors[i], points[i]); 
-	}
-  
-  //Write labels
-	writeText(canvas, context, labelxposes, labelyposes, labeltexts);
-    
-  //Put the canvas back on screen
-  imgdest.src = canvas.toDataURL('image/png');
 }
 
 
-function updateTemperatureGraph(sensorId) {
+/**
+ * Get current the last sensorreading for the specified sensor and place them in a graph
+ */
+TemperaturePage.prototype.updateTemperatureGraph = function(sensorId) {
 	doApiCall("hw", "GetTemperatureGraph", {"sensorId": sensorId, "graphType": "8hours"}, true, function(data) {
 		var plotdata = new Array();
 		var counter = 0;

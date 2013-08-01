@@ -1,4 +1,11 @@
-function startSettings() {
+SettingsPage = function() {
+
+}
+
+/**
+ * Start by loading the current saved values
+ */
+SettingsPage.prototype.start = function() {
   $('#username').val(localStorage.username);
   if (localStorage.privatekey!==undefined) {
     $('#privatekey').attr("placeholder","password stored");
@@ -6,10 +13,10 @@ function startSettings() {
     $('#privatekey').attr("placeholder","");
   }
   
-  getClearanceLevel();
+  this.getClearanceLevel();
 }
 
-function saveLoginForAPI(user, privkey) {
+SettingsPage.prototype.saveLoginForAPI = function(user, privkey) {
   localStorage.username = user;
   localStorage.privatekey = "" + CryptoJS.SHA256(privkey);
   
@@ -21,21 +28,22 @@ function saveLoginForAPI(user, privkey) {
     }
   });
   
-  getClearanceLevel();
+  this.getClearanceLevel();
 }
 
-function clearCredentials() {
+SettingsPage.prototype.clearCredentials = function() {
   localStorage.username = "";
   localStorage.privatekey = undefined;
   
   $('#username').val(localStorage.username);
   $('#privatekey').attr("placeholder","");
+  $('#privatekey').val("");
   
   showAlert("alertzone", "", "Login credentials cleared!");
-  getClearanceLevel();
+  this.getClearanceLevel();
 }
 
-function getClearanceLevel() {
+SettingsPage.prototype.getClearanceLevel = function() {
   doApiCall("common", "GetClearanceLevel", {}, true, function(data) {
     if (data.status == "unauthorized") {
      $("#clearancelevel").html("0");

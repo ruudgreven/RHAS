@@ -9,14 +9,15 @@
     Username: <input type="text" id="username"/><br/>
     Private key: <input type="text" id="privatekey"/><br/>
   </form>
-  <button onClick="saveLoginForAPI($('#username').val(), $('#privatekey').val());">Opslaan</button>&nbsp;
-  <button onClick="clearCredentials();">Clear current credentials</button><br/>
+  <button onClick="settings.saveLoginForAPI($('#username').val(), $('#privatekey').val());">Opslaan</button>&nbsp;
+  <button onClick="settings.clearCredentials();">Clear current credentials</button><br/>
   &nbsp;<br/>
 </div>
 
 <h4>Check clearance level</h4>
-Your active clearance level is <strong id="clearancelevel">#</strong>. &nbsp;<button onClick="getClearanceLevel();">Check!</button><br/>
+Your active clearance level is <strong id="clearancelevel">#</strong>. &nbsp;<button onClick="settings.getClearanceLevel();">Check!</button><br/>
 &nbsp;
 <script>
-  startSettings();
+  var settings = new SettingsPage();
+  settings.start();
 </script>
