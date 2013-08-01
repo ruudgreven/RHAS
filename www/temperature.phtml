@@ -11,7 +11,9 @@
 <!-- include RHAS -->
 <script src="js/rhas/map/housemap.js"></script>
 <script src="js/rhas/temperature.js"></script>
-
+<script>
+var temperature;
+</script>
 
 <div class="map">
   <img id="mapimage_orig" src="js/rhas/map/map.png" onload="if (navigator.userAgent.match(/AppleWebKit/)) {imageLoaded();}" style="display: none;"/>
@@ -38,13 +40,13 @@
   
   function startPage() {
     if (!navigator.userAgent.match(/AppleWebKit/)) {
-      var temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
+      temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
       temperature.start();
     }
   }
   
   function imageLoaded() {
-     var temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
+     temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
      temperature.start();
   }
 </script>
