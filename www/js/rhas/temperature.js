@@ -48,7 +48,7 @@ TemperaturePage.prototype.updateTemperatures = function(numberOfThermometers) {
 TemperaturePage.prototype.updateTemperatureFieldsAndImage = function() {
   var obj = this;
 	//Get sensordata
-	doApiCall("hw", "GetSensors", {}, true, function(data) {
+	doApiCall("hw", "GetSensors", {}, false, function(data) {
 	  var colors = new Array();
 	  var texts = new Array();
 	  
@@ -91,7 +91,7 @@ TemperaturePage.prototype.updateTemperatureFieldsAndImage = function() {
  * Get current the last sensorreading for the specified sensor and place them in a graph
  */
 TemperaturePage.prototype.updateTemperatureGraph = function(sensorId) {
-	doApiCall("hw", "GetTemperatureGraph", {"sensorId": sensorId, "graphType": "8hours"}, true, function(data) {
+	doApiCall("hw", "GetTemperatureGraph", {"sensorId": sensorId, "graphType": "8hours"}, false, function(data) {
 		var plotdata = new Array();
 		var counter = 0;
 		$.each(data.response, function(i, measure) {
