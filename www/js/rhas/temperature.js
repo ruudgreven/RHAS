@@ -27,19 +27,19 @@ TemperaturePage.prototype.start = function() {
   
 		//Start updating temperature every 2 minutes
 		var numberOfThermometers = counter;
-		obj.updateTemperatures(numberOfThermometers, 50);
-		setInterval("temperature.updateTemperatures(" + numberOfThermometers + ", " + 50 + ")", 120000);
+		obj.updateTemperatures(numberOfThermometers);
+		setInterval("temperature.updateTemperatures(" + numberOfThermometers + ")", 120000);
 	});
 }
 
 /**
  * Update all the temperature viewings
  */
-TemperaturePage.prototype.updateTemperatures = function(numberOfThermometers, updateOffset) {
+TemperaturePage.prototype.updateTemperatures = function(numberOfThermometers) {
+	this.updateTemperatureFieldsAndImage();
 	for (var i=0; i < numberOfThermometers; i++) {
 		this.updateTemperatureGraph(i);
 	}
-	this.updateTemperatureFieldsAndImage();
 }
 
 /**
@@ -48,7 +48,7 @@ TemperaturePage.prototype.updateTemperatures = function(numberOfThermometers, up
 TemperaturePage.prototype.updateTemperatureFieldsAndImage = function() {
   var obj = this;
 	//Get sensordata
-	doApiCall("hw", "GetSensors", {}, false, function(data) {
+	doApiCall("hw", "GetSensors", {}, true, function(data) {
 	  var colors = new Array();
 	  var texts = new Array();
 	  
