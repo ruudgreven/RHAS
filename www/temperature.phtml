@@ -14,7 +14,7 @@
 
 
 <div class="map">
-  <img id="mapimage_orig" src="js/rhas/map/map.png" style="display: none;"/>
+  <img id="mapimage_orig" src="js/rhas/map/map.png" onload="if (navigator.userAgent.match(/AppleWebKit/)) {imageLoaded();}" style="display: none;"/>
   <img id="mapimage" src="js/rhas/map/map.png"/>
 </div>
 
@@ -32,8 +32,19 @@
 
 	
 <script>
+  //TODO: Used quite an idiotic construction to make it work in Safari and Firefox. Check the onload event on img, that's needed for safari because it should wait until the 
+  // image loaded before executing the javascript. Strange fact is that that solution triggers an "function not found" for imageLoaded() on Firefox. So, both solutions added. Quite
+  // dirty
+  
   function startPage() {
-    var temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
-    temperature.start();
+    if (!navigator.userAgent.match(/AppleWebKit/)) {
+      var temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
+      temperature.start();
+    }
+  }
+  
+  function imageLoaded() {
+     var temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
+     temperature.start();
   }
 </script>
