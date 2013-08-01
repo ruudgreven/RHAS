@@ -43,8 +43,6 @@ HouseMap.prototype.drawTemperature = function(colors, texts) {
     }
     if (!(i in texts)) {
       texts[i] = "Onbekend";
-    } else {
-      texts[i] = texts[i] + "&#8451;";
     }
     drawShape(this.context, colors[i], this.temperaturezones[i]); 
     
