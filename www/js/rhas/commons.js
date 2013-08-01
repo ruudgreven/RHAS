@@ -1,5 +1,7 @@
 function loadPage(page) {
   $('#content').load(page + '.phtml', function() {
+    $('.menuitem').removeClass("active");
+    $('#menu_' + page).addClass("active");
     startPage();
   });
 }
