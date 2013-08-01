@@ -1,5 +1,7 @@
 function loadPage(page) {
-  $('#content').load(page + '.phtml');
+  $('#content').load(page + '.phtml', function() {
+    startPage();
+  });
 }
 
 /**

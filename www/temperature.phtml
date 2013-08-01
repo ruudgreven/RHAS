@@ -32,6 +32,8 @@
 
 	
 <script>
-  var temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
-  temperature.start();
+  function startPage() {
+    var temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
+    temperature.start();
+  }
 </script>
