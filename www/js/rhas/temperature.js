@@ -28,7 +28,7 @@ TemperaturePage.prototype.start = function() {
 		//Start updating temperature every 2 minutes
 		var numberOfThermometers = counter;
 		obj.updateTemperatures(numberOfThermometers, 50);
-		setInterval("this.updateTemperatures(" + numberOfThermometers + ", " + 50 + ")", 120000);
+		setInterval("temperature.updateTemperatures(" + numberOfThermometers + ", " + 50 + ")", 120000);
 	});
 }
 
