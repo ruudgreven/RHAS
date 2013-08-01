@@ -84,15 +84,16 @@ function updateTemperatureFieldsAndImage() {
 	});
 	
 	//Update map image (takes a long time)
-	var imgdest = document.getElementById(imgId);
-
+	var imgsrc = document.getElementById(imgId + "_orig");
+  var imgdest = document.getElementById(imgId);
+  
   var canvas = document.createElement('canvas');
   var context = canvas.getContext("2d");
-  canvas.width = imgdest.width;
-  canvas.height = imgdest.height;
+  canvas.width = imgsrc.width;
+  canvas.height = imgsrc.height;
 
   // draw the image on the temporary canvas
-  context.drawImage(imgdest, 0, 0, canvas.width, canvas.height);
+  context.drawImage(imgsrc, 0, 0, canvas.width, canvas.height);
     
   //write rectangles for every room
   for (var i=0; i < points.length; i++) {
