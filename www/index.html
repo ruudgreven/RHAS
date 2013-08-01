@@ -33,6 +33,7 @@
     <script src="js/rhas/commons.js"></script>
     
     <script>
+      var currentpage = "";
       $(document).ready(function() {
         loadPage("temperature");
       });
@@ -48,6 +49,7 @@
           <li id="menu_weather" class="menuitem"><a href="#" onClick="loadPage('weather');">Weather</a></li>
           <li id="menu_settings" class="menuitem"><a href="#" class="glyphicon glyphicon-cog" onClick="loadPage('settings');"></a></li>
           <li id="menu_info" class="menuitem"><a href="#" class="glyphicon glyphicon-info-sign" onClick="loadPage('info');"></a></li>
+          <li id="menu_refresh" class="menuitem"><a href="#" class="glyphicon glyphicon-refresh" onClick="loadPage(currentpage);"></a></li>
         </ul>
         <h3 class="muted">RHAS</h3>
       </div>

@@ -1,5 +1,16 @@
 function loadPage(page) {
+  //Stop all timers and intervals
+  for(var i=0,s=setInterval(function(){},1e10);i<=s;++i)
+    clearInterval(i);
+  for(var i=0,s=setTimeout(function(){},1e10);i<=s;++i)
+    clearTimeout(i);
+    
+  if (currentpage!="") {
+    stopPage();
+  }
+  $('#content').empty();
   $('#content').load(page + '.phtml', function() {
+    currentpage = page;
     $('.menuitem').removeClass("active");
     $('#menu_' + page).addClass("active");
     startPage();

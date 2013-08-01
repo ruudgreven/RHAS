@@ -45,6 +45,10 @@ var temperature;
     }
   }
   
+  function stopPage() {
+    temperature = undefined;
+  }
+  
   function imageLoaded() {
      temperature = new TemperaturePage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
      temperature.start();
