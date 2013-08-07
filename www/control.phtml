@@ -8,22 +8,24 @@
 var control;
 </script>
 
-<div class="map">
-  <img id="mapimage_orig" src="js/rhas/map/map.png" onload="if (navigator.userAgent.match(/AppleWebKit/)) {imageLoaded();}" style="display: none;"/>
-  <img id="mapimage" src="js/rhas/map/map.png"/>
+<div class="row centercontent highlightrow">
+  <img id="mapimage_orig" class="mapimage" src="js/rhas/map/map.png" onload="if (navigator.userAgent.match(/AppleWebKit/)) {imageLoaded();}" style="display: none;"/>
+  <img id="mapimage" class="mapimage" src="js/rhas/map/map.png"/>
 </div>
 
-<h4>Switches</h4>
-<div id="alertzone"></div>
-<div class="row-fluid switches">
-  <div class="span4" id="switchlist1">
+<div class="body-content">
+  <h4>Switches</h4>
+  <div id="alertzone"></div>
+  <div class="row switches">
+    <div class="col-lg-4" id="switchlist1">
 
-  </div>
-  <div class="span4" id="switchlist2">
+    </div>
+    <div class="col-lg-4" id="switchlist2">
 
-  </div>
-  <div class="span4" id="switchlist3">
+    </div>
+    <div class="col-lg-4" id="switchlist3">
 
+    </div>
   </div>
 </div>
 

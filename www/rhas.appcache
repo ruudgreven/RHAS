@@ -1,6 +1,6 @@
 CACHE MANIFEST
  
-# Version 0.1
+# Version 0.2
  
 NETWORK:
 *
@@ -23,8 +23,9 @@ img/ico/apple-touch-icon-72-precomposed.png
 
 js/bootstrap.min.js
 js/jquery-1.10.2.min.js
-js/core-min.js
-js/sha256-min.js
+js/cryptojs/core-min.js
+js/cryptojs/sha256-min.js
+js/rhas/map/map.png
 
 lib/jqplot/excanvas.min.js
 lib/jqplot/jquery.jqplot.min.css
