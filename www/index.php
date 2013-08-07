@@ -11,7 +11,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
     <meta name="description" content="Ruud's Home Automation System">
     <meta name="author" content="Ruud Greven">
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
 	  <link href="css/rhas.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
