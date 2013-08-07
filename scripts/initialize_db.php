@@ -55,6 +55,12 @@
   echo "OK!\n";
   
   
+  echo "Creating tables for HUE...";
+  $oMysqli->query("CREATE TABLE IF NOT EXISTS hue_lights (id INT, name varchar(32), type varchar(32), modelid varchar(10), swversion varchar(10), PRIMARY KEY (id));");
+  $oMysqli->query("CREATE TABLE IF NOT EXISTS hue_lightdata (datetime TIMESTAMP, id INT, status BOOL, brightness TINYINT UNSIGNED, hue SMALLINT UNSIGNED, saturation TINYINT UNSIGNED, PRIMARY KEY (datetime,id));");
+  echo "OK!\n";
+  
+  
   
   echo "Creating tables for notifications...";
   $oMysqli->query("CREATE TABLE IF NOT EXISTS notifications (datetime TIMESTAMP, type VARCHAR(32), title VARCHAR(64), message VARCHAR(512), PRIMARY KEY (datetime,type));");
