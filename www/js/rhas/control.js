@@ -9,8 +9,9 @@ ControlPage.prototype.start = function() {
   //Get sensor information
   doApiCall("hw", "GetSensorInfo", {}, true, function(data) {	
     var numOfSwitches = data.response.switches.length;
+    var maxPerColumn = Math.ceil(numOfSwitches/3);
     $.each(data.response.switches, function(i, theSwitch) {
-      var column = (i % 3) + 1;
+      var column = Math.ceil(i/maxPerColumn);
       var columnname = "#switchlist" + column;
       
       var switchcode = "<div id=\"switch" + theSwitch.id + "\">" + theSwitch.name + "<div class=\"btn-group\">"
