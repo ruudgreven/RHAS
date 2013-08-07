@@ -35,7 +35,7 @@
     <script>
       var currentpage = "";
       $(document).ready(function() {
-        loadPage("temperature");
+        loadPage("control");
       });
     </script>
   </head>
@@ -45,6 +45,7 @@
 
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
+          <li id="menu_control" class="menuitem"><a href="#" onClick="loadPage('control');">Control</a></li>
           <li id="menu_temperature" class="menuitem"><a href="#" onClick="loadPage('temperature');">Temperature</a></li>
           <li id="menu_weather" class="menuitem"><a href="#" onClick="loadPage('weather');">Weather</a></li>
           <li id="menu_settings" class="menuitem"><a href="#" class="glyphicon glyphicon-cog" onClick="loadPage('settings');"></a></li>

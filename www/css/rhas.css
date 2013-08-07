@@ -21,6 +21,14 @@ body {
 	height: 120px;
 }
 
+.switches > DIV > DIV {
+  height: 30px;
+}
+
+.switches > DIV > DIV > DIV {
+  float: right;
+}
+
 #loader {
   text-align: center;
 }
