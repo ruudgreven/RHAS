@@ -49,6 +49,11 @@
 		    "posy": 180
 		  },
 		  {
+		    "lightid": 4,
+		    "posx": 155,
+		    "posy": 209
+		  },
+		  {
 		    "lightid": 6,
 		    "posx": 432,
 		    "posy": 83
