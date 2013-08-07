@@ -55,10 +55,10 @@ body {
 	height: 120px;
 }
 
-.switches > DIV > DIV {
+#switches > DIV > DIV {
   height: 35px;
 }
 
-.switches > DIV > DIV > DIV {
+#switches > DIV > DIV > DIV {
   float: right;
 }

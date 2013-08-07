@@ -33,7 +33,14 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
     <script>
       var currentpage = "";
       $(document).ready(function() {
-        loadPage("control");
+        doApiCall("common", "GetClearanceLevel", {}, false, function(data) {
+          if (data.level >= 5) {
+            loadPage("control");
+            $("#menu_control").fadeIn();
+          } else {
+            loadPage("temperature");
+          }
+        });
       });
     </script>
   </head>
@@ -52,7 +59,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
         <a class="navbar-brand" href="#">RHAS</a>
         <div class="nav-collapse collapse">
           <ul class="nav navbar-nav">
-            <li id="menu_control" class="menuitem"><a href="#" onClick="loadPage('control');">Control</a></li>
+            <li id="menu_control" class="menuitem" style="display: none;"><a href="#" onClick="loadPage('control');">Control</a></li>
             <li id="menu_temperature" class="menuitem"><a href="#" onClick="loadPage('temperature');">Temperature</a></li>
             <li id="menu_weather" class="menuitem"><a href="#" onClick="loadPage('weather');">Weather</a></li>
             <li id="menu_settings" class="menuitem"><a href="#" class="glyphicon glyphicon-cog" onClick="loadPage('settings');"></a></li>

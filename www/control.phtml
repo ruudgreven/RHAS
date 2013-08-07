@@ -14,9 +14,9 @@ var control;
 </div>
 
 <div class="body-content">
-  <h4>Switches</h4>
   <div id="alertzone"></div>
-  <div class="row switches">
+  <div id="switches" class="row" style="display: none;">
+    <h4>Switches</h4>
     <div class="col-lg-4" id="switchlist1">
 
     </div>
@@ -39,6 +39,13 @@ var control;
       control = new ControlPage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
       control.start();
     }
+    
+    //Check level and enable certain functionality
+    doApiCall("common", "GetClearanceLevel", {}, false, function(data) {
+      if (data.level >= 5) {
+        $("#switches").show();
+      }
+    });
   }
   
   function stopPage() {
