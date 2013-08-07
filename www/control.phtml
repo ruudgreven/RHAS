@@ -1,8 +1,17 @@
 <!DOCTYPE html>
+
+<!-- include RHAS -->
+<script src="js/rhas/map/housemap.js"></script>
 <script src="js/rhas/control.js"></script>
+
 <script>
 var control;
 </script>
+
+<div class="map">
+  <img id="mapimage_orig" src="js/rhas/map/map.png" onload="if (navigator.userAgent.match(/AppleWebKit/)) {imageLoaded();}" style="display: none;"/>
+  <img id="mapimage" src="js/rhas/map/map.png"/>
+</div>
 
 <h4>Switches</h4>
 <div id="alertzone"></div>
@@ -20,7 +29,7 @@ var control;
 
 <script>
   function startPage() {
-    control = new ControlPage();
+    control = new ControlPage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
     control.start();
   }
   

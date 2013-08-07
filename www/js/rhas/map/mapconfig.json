@@ -31,6 +31,63 @@
 				"labelposx": 360,
 				"labelposy": 165
 			}
+		],
+		"lights": [
+		  {
+		    "lightid": 0,
+		    "posx": 275,
+		    "posy": 5
+		  },
+		  {
+		    "lightid": 2,
+		    "posx": 359,
+		    "posy": 117
+		  },
+		  {
+		    "lightid": 3,
+		    "posx": 572,
+		    "posy": 180
+		  },
+		  {
+		    "lightid": 6,
+		    "posx": 432,
+		    "posy": 83
+		  },
+		  {
+		    "lightid": 7,
+		    "posx": 556,
+		    "posy": 83
+		  },
+		  {
+		    "lightid": 8,
+		    "posx": 500,
+		    "posy": 5
+		  },
+		  {
+		    "lightid": 9,
+		    "posx": 359,
+		    "posy": 28
+		  },
+		  {
+		    "lightid": 10,
+		    "posx": 398,
+		    "posy": 105
+		  },
+		  {
+		    "lightid": 11,
+		    "posx": 304,
+		    "posy": 64
+		  },
+		  {
+		    "lightid": 12,
+		    "posx": 585,
+		    "posy": 60
+		  },
+		  {
+		    "lightid": 13,
+		    "posx": 93,
+		    "posy": 185
+		  }
 		]
 	}
 }

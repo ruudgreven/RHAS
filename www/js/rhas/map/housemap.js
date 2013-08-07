@@ -2,6 +2,11 @@ function HouseMap (origObject, object) {
   this.mapObjectOrig = origObject;
   this.mapObject = object;
   
+  this.lightOnObj = new Image();
+  this.lightOnObj.src = "img/light_on.png";
+  this.lightOffObj = new Image();
+  this.lightOffObj.src = "img/light_off.png";
+  
   //Temperaturezones
   this.temperaturezones = new Array();
   this.temperatureLabelCoordinates = new Array();
@@ -51,6 +56,27 @@ HouseMap.prototype.drawTemperature = function(colors, texts) {
   	this.context.font = "bold 16px Arial";
   	this.context.fillText(texts[i], this.temperatureLabelCoordinates[i][0], this.temperatureLabelCoordinates[i][1]);
   }
+}
+
+HouseMap.prototype.drawHWSwitches = function(switches) {
+  var obj = this;
+  $.ajax({
+  		url: "js/rhas/map/mapconfig.json",
+ 		  dataType: 'json',
+  		async: false,
+	}).done(function(data) {
+	  $.each(data.map.lights, function(i, lightObj) {
+	    $.each(switches, function(i, switchObj) {
+	      if (switchObj.id == lightObj.lightid) {
+	        if (switchObj.status == 1) {
+	          obj.context.drawImage(obj.lightOnObj, lightObj.posx, lightObj.posy, 24, 30); 
+	        } else {
+	          obj.context.drawImage(obj.lightOffObj, lightObj.posx, lightObj.posy, 24, 30);
+	        }
+	      }
+	    });
+	  });
+	});
 }
 
 HouseMap.prototype.drawOnScreen = function() {
