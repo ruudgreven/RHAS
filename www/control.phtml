@@ -28,12 +28,23 @@ var control;
 </div>
 
 <script>
+//TODO: Used quite an idiotic construction to make it work in Safari and Firefox. Check the onload event on img, that's needed for safari because it should wait until the 
+  // image loaded before executing the javascript. Strange fact is that that solution triggers an "function not found" for imageLoaded() on Firefox. So, both solutions added. Quite
+  // dirty
+  
   function startPage() {
-    control = new ControlPage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
-    control.start();
+    if (!navigator.userAgent.match(/AppleWebKit/)) {
+      control = new ControlPage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
+      control.start();
+    }
   }
   
   function stopPage() {
+    control = undefined;
+  }
   
+  function imageLoaded() {
+     control = new ControlPage(document.getElementById('mapimage_orig'), document.getElementById("mapimage"));
+     control.start();
   }
 </script>
