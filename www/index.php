@@ -3,7 +3,7 @@ header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest=”rhas.appcache”>
   <head>
     <meta charset="utf-8">
     <title>RHAS</title>
@@ -11,7 +11,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
     <meta name="description" content="Ruud's Home Automation System">
     <meta name="author" content="Ruud Greven">
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 	  <link href="css/rhas.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
