@@ -15,15 +15,28 @@ var control;
 
 <div class="body-content">
   <div id="alertzone"></div>
-  <div id="switches" class="row" style="display: none;">
+  <div id="hueswitches" class="row switches" style="display: none;">
+    <h4>HUE Lights</h4>
+    <div class="col-lg-4" id="hueswitchlist1">
+
+    </div>
+    <div class="col-lg-4" id="hueswitchlist2">
+
+    </div>
+    <div class="col-lg-4" id="hueswitchlist3">
+
+    </div>
+  </div>
+  
+  <div id="hwswitches" class="row switches" style="display: none;">
     <h4>Switches</h4>
-    <div class="col-lg-4" id="switchlist1">
+    <div class="col-lg-4" id="hwswitchlist1">
 
     </div>
-    <div class="col-lg-4" id="switchlist2">
+    <div class="col-lg-4" id="hwswitchlist2">
 
     </div>
-    <div class="col-lg-4" id="switchlist3">
+    <div class="col-lg-4" id="hwswitchlist3">
 
     </div>
   </div>
@@ -43,7 +56,8 @@ var control;
     //Check level and enable certain functionality
     doApiCall("common", "GetClearanceLevel", {}, false, function(data) {
       if (data.level >= 5) {
-        $("#switches").show();
+        $("#hueswitches").show();
+        $("#hwswitches").show();
       }
     });
   }

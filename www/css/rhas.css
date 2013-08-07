@@ -55,10 +55,19 @@ body {
 	height: 120px;
 }
 
-#switches > DIV > DIV {
+.switches > DIV > DIV {
   height: 35px;
 }
 
-#switches > DIV > DIV > DIV {
+.switches .btn-group {
   float: right;
+}
+
+.switchcolorfield {
+  display: inline-block;
+  margin-left: 50px;
+  width: 100px;
+  height: 35px;
+  background-color: #000000;
+  border:3px solid #DDDDDD;
 }
