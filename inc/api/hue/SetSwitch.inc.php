@@ -37,7 +37,7 @@ class SetSwitch implements iApiFunction {
         $sTimestamp = date("Y-m-d H:i:00");  //Remove seconds, to assure we don't have numerous measurements per minute
         
         $oMysqli = getMysqli();
-        $sQuery = "UPDATE hue_lightdata SET datetime='" . $sTimestamp . "', status=" . ($sStatus == "on" ? 1 : 0) . " WHERE datetime='" . $sTimestamp . "' AND id=" . $sId . ";";
+        $sQuery = "UPDATE hue_lightdata SET datetime='" . $sTimestamp . "', status=" . ($sStatus == "true" ? 1 : 0) . " WHERE datetime='" . $sTimestamp . "' AND id=" . $sId . ";";
         $oMysqli->query($sQuery);
       
         echo "{\"status\": \"ok\"}";
