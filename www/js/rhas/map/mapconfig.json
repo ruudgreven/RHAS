@@ -32,64 +32,98 @@
 				"labelposy": 165
 			}
 		],
-		"lights": [
+		
+		"hueswitches": [
 		  {
-		    "lightid": 0,
-		    "posx": 275,
+		    "id": 1,
+		    "posx": 95,
+		    "posy": 60
+		  },
+		  {
+		    "id": 2,
+		    "posx": 200,
+		    "posy": 140
+		  },
+		  {
+		    "id": 3,
+		    "posx": 260,
+		    "posy": 209
+		  },
+		  {
+		    "id": 4,
+		    "posx": 260,
+		    "posy": 60
+		  },
+		  {
+		    "id": 5,
+		    "posx": 220,
 		    "posy": 5
 		  },
 		  {
-		    "lightid": 2,
+		    "id": 6,
+		    "posx": 300,
+		    "posy": 5
+		  }
+		],
+		
+		"hwswitches": [
+		  {
+		    "id": 0,
+		    "posx": 95,
+		    "posy": 5
+		  },
+		  {
+		    "id": 2,
 		    "posx": 359,
 		    "posy": 117
 		  },
 		  {
-		    "lightid": 3,
+		    "id": 3,
 		    "posx": 572,
 		    "posy": 180
 		  },
 		  {
-		    "lightid": 4,
+		    "id": 4,
 		    "posx": 155,
 		    "posy": 209
 		  },
 		  {
-		    "lightid": 6,
+		    "id": 6,
 		    "posx": 432,
 		    "posy": 83
 		  },
 		  {
-		    "lightid": 7,
+		    "id": 7,
 		    "posx": 556,
 		    "posy": 83
 		  },
 		  {
-		    "lightid": 8,
+		    "id": 8,
 		    "posx": 500,
 		    "posy": 5
 		  },
 		  {
-		    "lightid": 9,
+		    "id": 9,
 		    "posx": 359,
 		    "posy": 28
 		  },
 		  {
-		    "lightid": 10,
+		    "id": 10,
 		    "posx": 398,
 		    "posy": 105
 		  },
 		  {
-		    "lightid": 11,
+		    "id": 11,
 		    "posx": 304,
 		    "posy": 64
 		  },
 		  {
-		    "lightid": 12,
+		    "id": 12,
 		    "posx": 585,
 		    "posy": 60
 		  },
 		  {
-		    "lightid": 13,
+		    "id": 13,
 		    "posx": 93,
 		    "posy": 185
 		  }

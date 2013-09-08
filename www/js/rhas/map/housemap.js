@@ -6,6 +6,10 @@ function HouseMap (origObject, object) {
   this.lightOnObj.src = "img/light_on.png";
   this.lightOffObj = new Image();
   this.lightOffObj.src = "img/light_off.png";
+  this.huelightOnObj = new Image();
+  this.huelightOnObj.src = "img/huelight_on.png";
+  this.huelightOffObj = new Image();
+  this.huelightOffObj.src = "img/huelight_off.png";
   
   //Temperaturezones
   this.temperaturezones = new Array();
@@ -65,13 +69,34 @@ HouseMap.prototype.drawHWSwitches = function(switches) {
  		  dataType: 'json',
   		async: false,
 	}).done(function(data) {
-	  $.each(data.map.lights, function(i, lightObj) {
+	  $.each(data.map.hwswitches, function(i, lightObj) {
 	    $.each(switches, function(i, switchObj) {
-	      if (switchObj.id == lightObj.lightid) {
+	      if (switchObj.id == lightObj.id) {
 	        if (switchObj.status == 1) {
 	          obj.context.drawImage(obj.lightOnObj, lightObj.posx, lightObj.posy, 24, 30); 
 	        } else {
 	          obj.context.drawImage(obj.lightOffObj, lightObj.posx, lightObj.posy, 24, 30);
+	        }
+	      }
+	    });
+	  });
+	});
+}
+
+HouseMap.prototype.drawHUESwitches = function(switches) {
+  var obj = this;
+  $.ajax({
+  		url: "js/rhas/map/mapconfig.json",
+ 		  dataType: 'json',
+  		async: false,
+	}).done(function(data) {
+	  $.each(data.map.hueswitches, function(i, lightObj) {
+	    $.each(switches, function(i, switchObj) {
+	      if (switchObj.id == lightObj.id) {
+	        if (switchObj.status == 1) {
+	          obj.context.drawImage(obj.huelightOnObj, lightObj.posx, lightObj.posy, 24, 30); 
+	        } else {
+	          obj.context.drawImage(obj.huelightOffObj, lightObj.posx, lightObj.posy, 24, 30);
 	        }
 	      }
 	    });

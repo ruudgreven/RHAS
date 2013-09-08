@@ -65,9 +65,13 @@ body {
 
 .switchcolorfield {
   display: inline-block;
-  margin-left: 25px;
+  float: right;
   width: 50px;
   height: 35px;
   background-color: #000000;
-  border:3px solid #DDDDDD;
+  border:1px solid #DDDDDD;
+}
+
+.switches .selected {
+  background-color: #EEEEEE;
 }

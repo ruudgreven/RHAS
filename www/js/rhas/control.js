@@ -14,7 +14,7 @@ ControlPage.prototype.start = function() {
       var column = Math.ceil((i/maxPerColumn)+0.1);
       var columnname = "#hueswitchlist" + column;
       
-      var switchcode = "<div id=\"hueswitch" + theLight.id + "\">" + theLight.name + "&nbsp;<div id=\"hueswitch" + theLight.id + "colorfield\" class=\"switchcolorfield\">&nbsp;</div><div class=\"btn-group\">"
+      var switchcode = "<div id=\"hueswitch" + theLight.id + "\"><span onClick=\"control.togglePreset('hueswitch', '" + theLight.id + "');\">" + theLight.name + "</span>&nbsp;<div id=\"hueswitch" + theLight.id + "colorfield\" class=\"switchcolorfield\">&nbsp;</div><div class=\"btn-group\">"
       switchcode = switchcode + "<button id=\"hueswitch" + theLight.id + "onbutton\" class=\"btn btn-default\" onClick=\"control.toggleHUESwitch(" + theLight.id + ", 'on');\">on</button><button id=\"hueswitch" + theLight.id + "offbutton\"class=\"btn btn-default\" onClick=\"control.toggleHUESwitch(" + theLight.id + ", 'off');\">off</button>";
       switchcode = switchcode + "</div></div>"
       $(columnname).append(switchcode);
@@ -29,7 +29,7 @@ ControlPage.prototype.start = function() {
       var column = Math.ceil((i/maxPerColumn)+0.1);
       var columnname = "#hwswitchlist" + column;
       
-      var switchcode = "<div id=\"hwswitch" + theSwitch.id + "\">" + theSwitch.name + "<div class=\"btn-group\">"
+      var switchcode = "<div id=\"hwswitch" + theSwitch.id + "\"><span onClick=\"control.togglePreset('hwswitch', '" + theSwitch.id + "');\">" + theSwitch.name + "</span><div class=\"btn-group\">"
       switchcode = switchcode + "<button id=\"hwswitch" + theSwitch.id + "onbutton\" class=\"btn btn-default\" onClick=\"control.toggleHWSwitch(" + theSwitch.id + ", 'on');\">on</button><button id=\"hwswitch" + theSwitch.id + "offbutton\"class=\"btn btn-default\" onClick=\"control.toggleHWSwitch(" + theSwitch.id + ", 'off');\">off</button>";
       switchcode = switchcode + "</div></div>"
       $(columnname).append(switchcode);
@@ -48,6 +48,9 @@ ControlPage.prototype.start = function() {
 ControlPage.prototype.updateControlPage = function() {
   var obj = this;
   
+  //Update map
+	obj.map.clear();
+		
 	//Get Homewizard temperature and switch data
 	doApiCall("hw", "GetSensors", {}, false, function(data) {
 	  var colors = new Array();
@@ -99,11 +102,8 @@ ControlPage.prototype.updateControlPage = function() {
       }
     });
     
-		//Update map
-		obj.map.clear();
 		obj.map.drawTemperature(colors, texts);
 		obj.map.drawHWSwitches(data.response.switches);
-		obj.map.drawOnScreen();
 	});
 	
 	//Get HUE Light colors
@@ -117,8 +117,29 @@ ControlPage.prototype.updateControlPage = function() {
 	    var hex = rgb2hex(rgb['red'], rgb['green'], rgb['blue']);
 	    
 	    $("#hueswitch" + light.id + "colorfield").css("background-color", hex);
+	    
+	    //Get switch data
+	    if (light.status==1) {
+        $("#hueswitch" + light.id + "onbutton").removeClass();
+        $("#hueswitch" + light.id + "onbutton").addClass("btn btn-success");
+        
+        $("#hueswitch" + light.id + "offbutton").removeClass();
+        $("#hueswitch" + light.id + "offbutton").addClass("btn btn-default");
+      } else {
+        $("#hueswitch" + light.id + "onbutton").removeClass();
+        $("#hueswitch" + light.id + "onbutton").addClass("btn btn-default");
+        
+        $("#hueswitch" + light.id + "offbutton").removeClass();
+        $("#hueswitch" + light.id + "offbutton").addClass("btn btn-danger");      
+      }
 	  });
+	  
+	  //Update map
+    obj.map.drawHUESwitches(data.response.lights);
 	});
+	
+	//Update map
+	obj.map.drawOnScreen();
 }
 
 ControlPage.prototype.toggleHWSwitch = function(id, status) {
@@ -129,4 +150,23 @@ ControlPage.prototype.toggleHWSwitch = function(id, status) {
      showAlert("alertzone", "alert-danger", "Light not switched");
     }
   });
+}
+
+ControlPage.prototype.toggleHUESwitch = function(id, status) {
+  doApiCall("hue", "SetSwitch", {"id": id, "status": status}, true, function(data) {
+    if (data.status == "ok") {
+     control.updateControlPage();
+    } else {
+     showAlert("alertzone", "alert-danger", "Light not switched");
+    }
+  });
+}
+
+ControlPage.prototype.togglePreset = function(switchtype, switchnum) {
+  var element = $("#" + switchtype + switchnum);
+  if (element.hasClass("selected")) {
+    element.removeClass("selected");
+  } else {
+    element.addClass("selected");
+  }
 }
