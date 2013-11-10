@@ -69,7 +69,7 @@ TemperaturePage.prototype.updateTemperatureFieldsAndImage = function() {
 			} else if (offset >= 250 && offset < 450) {		//Temperature between 0 and 20 celcius
 				newcolor = interpolateColor("#11eeee","#eebb00",200,offset - 249);
 			} else if (offset >= 450 && offset < 550) {		//Temperature between 20 and 30 celcius
-				newcolor = interpolateColor("#eebb00","#ff2211",200,offset - 349);
+				newcolor = interpolateColor("#eebb00","#ff2211",200,offset - 449);
 			} else if (offset >= 550 && offset < 750) {		//Temperature between 30 and 50 celcius
 				newcolor = interpolateColor("#ff2211","#330000",200,offset - 549);
 			} else {
